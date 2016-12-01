@@ -1,0 +1,62 @@
+This Python script is used to install the "primary" homebrew exploit for
+Monster Hunter X. It only works for the JPN region of the game, using the
+latest game update.
+
+The script is compatible with Python 2.7+ and 3.5+ and requires the "twisted"
+and "pycrypto" modules. You can install these modules from the command line
+like this:
+  pip install --user twisted pycrypto
+
+You can run the script from the command line like this:
+  python server.py encryption_key
+
+The "encryption_key" needs to be the current DLC encryption key. You will need
+someone else with homebrew or CFW to use this homebrew application to get the
+DLC encryption key:
+  https://github.com/svanheulen/mhx_data_manager
+
+Once the script is running you can install the exploit to your game by changing
+your 3DS proxy settings to point to the computer the script is running on and
+port 8080. Next go into the game's "Download" option from the main menu and
+install either the first Event quest or Challenge quest.
+
+After you install the quest you can shutdown the script running on your
+computer and reset/disable the proxy settings on your 3DS.
+
+*** The first time you run the exploit (or after you do a system update), press
+and hold the "R" button when triggering the exploit. This should display a
+screen where you can select your current system version and region. ***
+
+To run the exploit just go to the offline Hunters Hub and try posting an Event
+quest or Challenge quest, depending on which you selected when installing.
+
+To uninstall the exploit, select the "Download" option in the game's main menu
+and re-download the first Challenge or Event quest (depending on which you
+selected while installing). Keep this in mind when using the "Download" option
+normally so that you don't accidentally uninstall the exploit.
+
+There are some notable limitations for this exploit:
+  * It only works on New 3DS systems. This is because game uses extended memory
+    mode on Old 3DS systems.
+  * It must be installed on the system you want to use it on. This is because
+    the exploit uses the game's ExtData which is stored on the SD card, not the
+    game cart.
+  * You will no longer be able to post certain quests in the Hunters Hub. If
+    you install the exploit as an Event quest, you wont be able to post Event
+    quests. If you install the exploit as a Challenge quest, you wont be able to
+    post Challenge quests. But you should still be able to join Event/Challenge
+    quests that other players post.
+
+For more information about the exploit, see this repo:
+  https://github.com/svanheulen/genhax
+
+You can report issues, get the latest version, and view the source at:
+  https://github.com/svanheulen/genhax_proxy_installer
+
+An archive including the script and exploit files can be found at:
+  https://github.com/svanheulen/genhax_proxy_installer/releases
+
+Special Thanks:
+  Kiranico, plutoo, yellows8, imanoob, AuroraWright, smealum, Gelex
+  ~ everyone else that answered my random questions on #3dsdev and #Cakey
+
