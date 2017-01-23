@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 '''
 Copyright 2016 Seth VanHeulen
 
@@ -23,6 +25,7 @@ import random
 import sys
 
 from Crypto.Cipher import Blowfish
+from Crypto.Util import Counter
 
 from twisted.internet import reactor
 from twisted.internet.protocol import Protocol, ClientFactory
@@ -102,20 +105,18 @@ class TunnelProxyFactory(HTTPFactory):
 
 
 def encrypt(buff, key):
-    seed = random.getrandbits(32)
-    buff = bytearray(buff)
-    buff.extend(hashlib.sha1(buff).digest())
-    xor_buff = array.array('I')
-    for i in range(int(math.ceil(len(buff)/8.0))):
-        xor_buff.extend([seed, i])
-    xor_buff = array.array('I', Blowfish.new(key.encode()).encrypt(xor_buff.tostring()))
-    xor_buff.byteswap()
-    xor_buff = bytearray(xor_buff.tostring())
-    for i in range(len(buff)):
-        buff[i] ^= xor_buff[i]
-    seed = array.array('I', [seed])
-    seed.byteswap()
-    return bytes(buff) + seed.tostring()
+    nonce = array.array('I', [random.getrandbits(32)])
+    buff += hashlib.sha1(buff).digest()
+    length = len(buff)
+    buff = array.array('I', buff + b'\x00' * (8 - length % 8))
+    buff.byteswap()
+    counter = Counter.new(32, prefix=nonce.tostring(), initial_value=0, little_endian=True)
+    cipher = Blowfish.new(key, Blowfish.MODE_CTR, counter=counter)
+    buff = array.array('I', cipher.encrypt(buff.tostring()))
+    buff.byteswap()
+    buff = buff.tostring()[:length]
+    nonce.byteswap()
+    return buff + nonce.tostring()
 
 
 if __name__ == '__main__':
