@@ -1,3 +1,12 @@
+********************************************************************************
+The Monster Hunter X v1.3.0 update added the RSA signature checking code
+from Generations and since you need to update to get to the DLC section, this
+installation method is dead forever.
+********************************************************************************
+You can still install as a secondary exploit:
+  https://github.com/svanheulen/genhax_installer
+********************************************************************************
+
 This Python script is used to install the "primary" homebrew exploit for
 Monster Hunter X. It only works for the JPN region of the game, using the
 latest game update.
